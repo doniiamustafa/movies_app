@@ -2,7 +2,7 @@ import 'dart:developer';
 
 import 'package:dio/dio.dart';
 import 'package:movies_app/constants/app_strings.dart';
-import 'package:movies_app/data/models/characters.dart';
+import 'package:movies_app/data/models/all_characters.dart';
 
 class CharactersWebservices {
   late Dio dio;
@@ -17,7 +17,7 @@ class CharactersWebservices {
     dio = Dio(options);
   }
 
-  Future<Characters> getAllCharacters() async {
+  Future<AllCharacters> getAllCharacters() async {
     Response response = await dio.get(AppStrings.getAllCharactersEndpoint);
     log(response.data);
     return response.data;

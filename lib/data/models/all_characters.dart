@@ -42,11 +42,11 @@ class Results {
   }
 }
 
-class Characters {
+class AllCharacters {
   List<Results>? results;
-  Characters(this.results);
+  AllCharacters(this.results);
 
-  Characters.fromJson(Map<String, dynamic> json) {
+  AllCharacters.fromJson(Map<String, dynamic> json) {
     if (json['results'] != null) {
       results = <Results>[];
       json['results'].forEach((v) {
