@@ -1,16 +1,23 @@
 import 'dart:developer';
 
 import 'package:movies_app/data/models/all_characters.dart';
-import 'package:movies_app/data/web_services/characters_web_services.dart';
+import 'package:movies_app/data/web_services/response.dart';
+import 'package:movies_app/data/web_services/web_service_retrofit.dart';
 
 class CharactersRepository {
-  final CharactersWebservices _charactersWebservices;
+  // final CharactersWebservices _charactersWebservices;
+  final WebServices webServices;
 
-  CharactersRepository(this._charactersWebservices);
+  CharactersRepository(this.webServices);
 
-  Future<AllCharacters> getAllCharacters() async {
-    final characters = await _charactersWebservices.getAllCharacters();
-    log(characters.toString());
-    return characters;
+  Future<List<Character>?> getAllCharacters() async {
+    try {
+      final characters = await webServices.getCharacters();
+      log("repository ${characters.info.pages}");
+      return characters.results;
+    } catch (e) {
+      log(e.toString());
+      return [];
+    }
   }
 }

@@ -4,7 +4,7 @@ abstract class CharactersState {}
 
 class CharactersInitialState extends CharactersState {}
 
-class CharactersLoadingState extends CharactersState {
-  final AllCharacters characters;
-  CharactersLoadingState(this.characters);
+class CharactersSuccessState extends CharactersState {
+  final List<Character>? item;
+  CharactersSuccessState(this.item);
 }

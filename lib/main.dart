@@ -1,8 +1,22 @@
+import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:movies_app/config/app_routes.dart';
+import 'package:movies_app/config/dependency_injection.dart';
 
-void main() {
+Future<void> main() async {
+  WidgetsFlutterBinding.ensureInitialized();
+  HttpOverrides.global = MyHttpOverrides();
+  await initLaunching();
   runApp(MovieApp());
+}
+
+class MyHttpOverrides extends HttpOverrides {
+  @override
+  HttpClient createHttpClient(SecurityContext? context) {
+    return super.createHttpClient(context)
+      ..badCertificateCallback =
+          (X509Certificate cert, String host, int port) => true;
+  }
 }
 
 class MovieApp extends StatelessWidget {
