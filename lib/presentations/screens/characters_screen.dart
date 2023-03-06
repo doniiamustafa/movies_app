@@ -1,8 +1,8 @@
 import 'dart:developer';
+import 'package:movies_app/business_logic/cubit/characters_cubit.dart';
 import 'package:movies_app/constants/app_colors.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:movies_app/business_logic/cubit/cubit/characters_cubit.dart';
 import 'package:movies_app/data/web_services/response.dart';
 import 'package:movies_app/presentations/widgets/character_item.dart';
 
@@ -28,8 +28,9 @@ class _CharactersScreenState extends State<CharactersScreen> {
     return Scaffold(
       appBar: AppBar(
         backgroundColor: AppColors.yellow,
+        centerTitle: true,
         title: const Text(
-          "Characters",
+          "Rick and Morty Movie",
           style: TextStyle(color: AppColors.grey),
         ),
       ),

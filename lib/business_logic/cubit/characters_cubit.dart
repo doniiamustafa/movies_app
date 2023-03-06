@@ -15,8 +15,8 @@ class CharactersCubit extends Cubit<CharactersState> {
   List<Character>? items = [];
 
   List<Character>? getAllCharacters() {
-     _charactersRepository.getAllCharacters().then((characters) {
-      log("cubit ${characters.toString()}");
+    _charactersRepository.getAllCharacters().then((characters) {
+      log("cubit ${characters![1].toString()}");
       emit(CharactersSuccessState(characters));
       items = characters;
     });
