@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:movies_app/constants/app_colors.dart';
-import 'package:movies_app/data/models/all_characters.dart';
 import 'package:movies_app/data/web_services/response.dart';
 import 'package:movies_app/presentations/screens/character_details_screen.dart';
 
