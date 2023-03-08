@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:movies_app/constants/app_colors.dart';
+import 'package:movies_app/constants/app_strings.dart';
 import 'package:movies_app/data/web_services/response.dart';
-import 'package:movies_app/presentations/screens/character_details_screen.dart';
 
 class CharacterItemWidget extends StatelessWidget {
   final Character item;
@@ -11,7 +11,9 @@ class CharacterItemWidget extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return InkWell(
-      onTap: () => Navigator.push(context, MaterialPageRoute(builder: (context)=> const CharacterDetailsScreen())),
+      onTap: () => Navigator.pushNamed(
+          context, AppStrings.characterDetailsScreen,
+          arguments: item),
       child: Container(
         width: double.infinity,
         margin: const EdgeInsetsDirectional.all(8),
