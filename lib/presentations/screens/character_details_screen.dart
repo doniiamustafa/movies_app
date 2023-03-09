@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:movies_app/business_logic/cubit/characters_cubit.dart';
 import 'package:movies_app/constants/app_colors.dart';
 import 'package:movies_app/constants/app_strings.dart';
 import 'package:movies_app/data/web_services/response.dart';
@@ -44,6 +46,14 @@ class CharacterDetailsScreen extends StatelessWidget {
                       const SizedBox(height: 20),
                     ],
                   )),
+              const SizedBox(height: 50),
+              BlocBuilder(builder: (context, state) {
+                if (state is LocationsSuccessState) {
+                  return renderLocations();
+                } else {
+                  return const CircularProgressIndicator();
+                }
+              }),
               const SizedBox(height: 500),
             ]),
           )
@@ -98,5 +108,9 @@ class CharacterDetailsScreen extends StatelessWidget {
       endIndent: endIndent, // el space mn el yemen tb2a ad eh
       thickness: 2,
     );
+  }
+
+  Widget renderLocations() {
+    return Container();
   }
 }

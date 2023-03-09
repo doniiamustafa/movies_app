@@ -8,3 +8,8 @@ class CharactersSuccessState extends CharactersState {
   final List<Character>? item;
   CharactersSuccessState(this.item);
 }
+
+class LocationsSuccessState extends CharactersState {
+  final String? location;
+  LocationsSuccessState(this.location);
+}

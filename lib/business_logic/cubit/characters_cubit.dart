@@ -2,6 +2,7 @@ import 'dart:developer';
 
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:movies_app/config/dependency_injection.dart';
+import 'package:movies_app/data/models/all_characters.dart';
 import 'package:movies_app/data/repository/characters_repository.dart';
 import 'package:movies_app/data/web_services/response.dart';
 
@@ -13,6 +14,7 @@ class CharactersCubit extends Cubit<CharactersState> {
   CharactersCubit() : super(CharactersInitialState());
 
   List<Character>? items = [];
+  String? location2 = "";
 
   List<Character>? getAllCharacters() {
     _charactersRepository.getAllCharacters().then((characters) {
@@ -22,5 +24,14 @@ class CharactersCubit extends Cubit<CharactersState> {
     });
 
     return items;
+  }
+
+  String? getLocations() {
+    _charactersRepository.getLocations().then((location) {
+      log("cubit $location");
+      emit(LocationsSuccessState(location));
+      location2 = location;
+    });
+    return location2;
   }
 }

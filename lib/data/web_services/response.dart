@@ -35,8 +35,7 @@ class Info {
       required this.next,
       required this.prev});
 
-  factory Info.fromJson(Map<String, dynamic> json) =>
-      _$InfoFromJson(json);
+  factory Info.fromJson(Map<String, dynamic> json) => _$InfoFromJson(json);
   Map<String, dynamic> toJson() => _$InfoToJson(this);
 }
 
@@ -84,4 +83,18 @@ class Character {
   factory Character.fromJson(Map<String, dynamic> json) =>
       _$CharacterFromJson(json);
   Map<String, dynamic> toJson() => _$CharacterToJson(this);
+}
+
+@JsonSerializable()
+class MultipleLocationResponse {
+  @JsonKey(name: 'name')
+  final String name;
+
+  const MultipleLocationResponse({
+    required this.name,
+  });
+
+  factory MultipleLocationResponse.fromJson(Map<String, dynamic> json) =>
+      _$MultipleLocationResponseFromJson(json);
+  Map<String, dynamic> toJson() => _$MultipleLocationResponseToJson(this);
 }

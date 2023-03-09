@@ -21,7 +21,10 @@ class AppRoutes {
       case AppStrings.characterDetailsScreen:
         final item = settings.arguments as Character;
         return MaterialPageRoute(
-            builder: (_) => CharacterDetailsScreen(item: item));
+            builder: (_) => BlocProvider(
+                  create: (BuildContext context) => charactersCubit,
+                  child: CharacterDetailsScreen(item: item),
+                ));
 
       default:
         return MaterialPageRoute(builder: (_) => const CharactersScreen());

@@ -65,3 +65,15 @@ Map<String, dynamic> _$CharacterToJson(Character instance) => <String, dynamic>{
       'url': instance.url,
       'created': instance.created,
     };
+
+MultipleLocationResponse _$MultipleLocationResponseFromJson(
+        Map<String, dynamic> json) =>
+    MultipleLocationResponse(
+      name: json['name'] as String,
+    );
+
+Map<String, dynamic> _$MultipleLocationResponseToJson(
+        MultipleLocationResponse instance) =>
+    <String, dynamic>{
+      'name': instance.name,
+    };

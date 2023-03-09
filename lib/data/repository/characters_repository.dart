@@ -20,4 +20,15 @@ class CharactersRepository {
       return [];
     }
   }
+
+  Future<String?> getLocations() async {
+    try {
+      final locations = await webServices.getMultipleLocation();
+      log("repository ${locations.name}");
+      return locations.name;
+    } catch (e) {
+      log(e.toString());
+      return "";
+    }
+  }
 }
