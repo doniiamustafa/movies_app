@@ -13,5 +13,5 @@ abstract class WebServices {
   Future<AllCharactersResponse> getCharacters();
 
   @GET(AppStrings.multipleLocation)
-  Future<MultipleLocationResponse> getMultipleLocation();
+  Future getLocation();
 }

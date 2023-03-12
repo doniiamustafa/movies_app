@@ -1,3 +1,6 @@
+import 'dart:developer';
+
+import 'package:animated_text_kit/animated_text_kit.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:movies_app/business_logic/cubit/characters_cubit.dart';
@@ -5,9 +8,20 @@ import 'package:movies_app/constants/app_colors.dart';
 import 'package:movies_app/constants/app_strings.dart';
 import 'package:movies_app/data/web_services/response.dart';
 
-class CharacterDetailsScreen extends StatelessWidget {
+class CharacterDetailsScreen extends StatefulWidget {
   final Character item;
   const CharacterDetailsScreen({required this.item, super.key});
+
+  @override
+  State<CharacterDetailsScreen> createState() => _CharacterDetailsScreenState();
+}
+
+class _CharacterDetailsScreenState extends State<CharacterDetailsScreen> {
+  @override
+  void initState() {
+    super.initState();
+    BlocProvider.of<CharactersCubit>(context).getLocations(widget.item.id);
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -25,35 +39,45 @@ class CharacterDetailsScreen extends StatelessWidget {
                     mainAxisAlignment: MainAxisAlignment.start,
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      characterInfo(AppStrings.species, item.species),
+                      characterInfo(AppStrings.species, widget.item.species),
                       buildDivider(250),
-                      characterInfo(AppStrings.gender, item.gender),
+                      characterInfo(AppStrings.gender, widget.item.gender),
                       buildDivider(255),
-                      characterInfo(AppStrings.origin, item.origin['name']!),
+                      characterInfo(
+                          AppStrings.origin, widget.item.origin['name']!),
                       buildDivider(266),
                       // law fi data type List fl API for example List origin:[a,b,c,d,e,f,g,h]
                       // ha3redha item.origin.join(" / ")
                       // htban fl UI a/b/c/d/e/f/g/h
                       characterInfo(
-                          AppStrings.location, item.location['name']!),
+                          AppStrings.location, widget.item.location['name']!),
                       buildDivider(245),
-                      characterInfo('Created: ', item.created),
+                      characterInfo('Created: ', widget.item.created),
                       buildDivider(245),
-                      item.type.isEmpty
+                      widget.item.type.isEmpty
                           ? Container()
-                          : characterInfo('Type: ', item.type),
-                      item.type.isEmpty ? Container() : buildDivider(275),
-                      const SizedBox(height: 20),
+                          : characterInfo('Type: ', widget.item.type),
+                      widget.item.type.isEmpty
+                          ? Container()
+                          : buildDivider(275),
+
+                      const SizedBox(height: 50),
+                      BlocBuilder<CharactersCubit, CharactersState>(
+                          builder: (context, state) {
+                        if (state is LocationsSuccessState) {
+                          log(state.location.toString());
+
+                          return renderLocations(state);
+                        } else {
+                          return const Center(
+                            child: CircularProgressIndicator(
+                              color: AppColors.yellow,
+                            ),
+                          );
+                        }
+                      }),
                     ],
                   )),
-              const SizedBox(height: 50),
-              BlocBuilder(builder: (context, state) {
-                if (state is LocationsSuccessState) {
-                  return renderLocations();
-                } else {
-                  return const CircularProgressIndicator();
-                }
-              }),
               const SizedBox(height: 500),
             ]),
           )
@@ -71,14 +95,14 @@ class CharacterDetailsScreen extends StatelessWidget {
       flexibleSpace: FlexibleSpaceBar(
         // centerTitle: true,
         title: Text(
-          item.name,
+          widget.item.name,
           style: const TextStyle(
             color: AppColors.yellow,
           ),
         ),
         background: Hero(
-          tag: item.id,
-          child: Image.network(item.image, fit: BoxFit.cover),
+          tag: widget.item.id,
+          child: Image.network(widget.item.image, fit: BoxFit.cover),
         ),
       ),
     );
@@ -110,7 +134,36 @@ class CharacterDetailsScreen extends StatelessWidget {
     );
   }
 
-  Widget renderLocations() {
-    return Container();
+  Widget renderLocations(state) {
+    var word = state.location.toString();
+    return Center(
+      child: Row(
+        mainAxisSize: MainAxisSize.min,
+        children: <Widget>[
+          const SizedBox(width: 20.0, height: 100.0),
+          const Text(
+            'Location:',
+            style: TextStyle(fontSize: 43.0),
+          ),
+          const SizedBox(width: 20.0, height: 100.0),
+          DefaultTextStyle(
+            style: const TextStyle(
+              fontSize: 22.0,
+              fontFamily: 'Horizon',
+            ),
+            child: AnimatedTextKit(
+              animatedTexts: [
+                RotateAnimatedText(word),
+                RotateAnimatedText('$word s'),
+                RotateAnimatedText('$word t'),
+              ],
+              onTap: () {
+                print("Tap Event");
+              },
+            ),
+          ),
+        ],
+      ),
+    );
   }
 }
