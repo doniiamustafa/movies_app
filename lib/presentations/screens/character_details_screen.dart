@@ -18,10 +18,10 @@ class CharacterDetailsScreen extends StatefulWidget {
 
 class _CharacterDetailsScreenState extends State<CharacterDetailsScreen> {
   @override
-  void initState() {
-    super.initState();
-    BlocProvider.of<CharactersCubit>(context).getLocations(widget.item.id);
-  }
+  // void initState() {
+  //   super.initState();
+  //   BlocProvider.of<CharactersCubit>(context);
+  // }
 
   @override
   Widget build(BuildContext context) {
@@ -64,17 +64,7 @@ class _CharacterDetailsScreenState extends State<CharacterDetailsScreen> {
                       const SizedBox(height: 50),
                       BlocBuilder<CharactersCubit, CharactersState>(
                           builder: (context, state) {
-                        if (state is LocationsSuccessState) {
-                          log(state.location.toString());
-
-                          return renderLocations(state);
-                        } else {
-                          return const Center(
-                            child: CircularProgressIndicator(
-                              color: AppColors.yellow,
-                            ),
-                          );
-                        }
+                        return renderLocations(widget.item.name);
                       }),
                     ],
                   )),
@@ -134,15 +124,15 @@ class _CharacterDetailsScreenState extends State<CharacterDetailsScreen> {
     );
   }
 
-  Widget renderLocations(state) {
-    var word = state.location.toString();
+  Widget renderLocations(String name) {
+    // var word = state.location.toString();
     return Center(
       child: Row(
         mainAxisSize: MainAxisSize.min,
         children: <Widget>[
           // const SizedBox(width: 20.0, height: 100.0),
           const Text(
-            'Location:',
+            'Name: ',
             style: TextStyle(fontSize: 20.0, color: AppColors.white),
           ),
           // const SizedBox(width: 20.0, height: 100.0),
@@ -153,10 +143,12 @@ class _CharacterDetailsScreenState extends State<CharacterDetailsScreen> {
             ),
             child: AnimatedTextKit(
               animatedTexts: [
-                RotateAnimatedText(word,
+                RotateAnimatedText(name,
                     textStyle: const TextStyle(color: AppColors.white)),
-                RotateAnimatedText('$word s', textStyle: const TextStyle(color: AppColors.white)),
-                RotateAnimatedText('$word t', textStyle: const TextStyle(color: AppColors.white)),
+                RotateAnimatedText('$name s',
+                    textStyle: const TextStyle(color: AppColors.white)),
+                RotateAnimatedText('$name t',
+                    textStyle: const TextStyle(color: AppColors.white)),
               ],
               onTap: () {
                 print("Tap Event");
