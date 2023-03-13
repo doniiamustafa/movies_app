@@ -1,4 +1,6 @@
+import 'dart:convert';
 import 'dart:developer';
+import 'dart:ffi';
 
 import 'package:movies_app/data/models/all_characters.dart';
 import 'package:movies_app/data/models/character_locations.dart';
@@ -11,9 +13,11 @@ class CharactersRepository {
 
   CharactersRepository(this.webServices);
 
+  var characters;
+
   Future<List<Character>?> getAllCharacters() async {
     try {
-      final characters = await webServices.getCharacters();
+      characters = await webServices.getCharacters();
       log("repository ${characters.info.pages}");
       return characters.results;
     } catch (e) {
@@ -22,14 +26,13 @@ class CharactersRepository {
     }
   }
 
-  Future<List<dynamic>> getLocations(int charId) async {
+  Future<int> getLocations(int charId) async {
     try {
-      final locations = await webServices.getLocation();
-      log("repository $locations");
-      return locations;
+      // final locations = await webServices.getLocation();
+      return characters.info.pages ;
     } catch (e) {
       log(e.toString());
-      return [];
+      return 0;
     }
   }
 }

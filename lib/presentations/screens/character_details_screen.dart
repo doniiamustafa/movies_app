@@ -140,12 +140,12 @@ class _CharacterDetailsScreenState extends State<CharacterDetailsScreen> {
       child: Row(
         mainAxisSize: MainAxisSize.min,
         children: <Widget>[
-          const SizedBox(width: 20.0, height: 100.0),
+          // const SizedBox(width: 20.0, height: 100.0),
           const Text(
             'Location:',
-            style: TextStyle(fontSize: 43.0),
+            style: TextStyle(fontSize: 20.0, color: AppColors.white),
           ),
-          const SizedBox(width: 20.0, height: 100.0),
+          // const SizedBox(width: 20.0, height: 100.0),
           DefaultTextStyle(
             style: const TextStyle(
               fontSize: 22.0,
@@ -153,9 +153,10 @@ class _CharacterDetailsScreenState extends State<CharacterDetailsScreen> {
             ),
             child: AnimatedTextKit(
               animatedTexts: [
-                RotateAnimatedText(word),
-                RotateAnimatedText('$word s'),
-                RotateAnimatedText('$word t'),
+                RotateAnimatedText(word,
+                    textStyle: const TextStyle(color: AppColors.white)),
+                RotateAnimatedText('$word s', textStyle: const TextStyle(color: AppColors.white)),
+                RotateAnimatedText('$word t', textStyle: const TextStyle(color: AppColors.white)),
               ],
               onTap: () {
                 print("Tap Event");

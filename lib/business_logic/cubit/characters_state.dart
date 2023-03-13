@@ -10,6 +10,6 @@ class CharactersSuccessState extends CharactersState {
 }
 
 class LocationsSuccessState extends CharactersState {
-  final List<dynamic>? location;
+  final int? location;
   LocationsSuccessState(this.location);
 }
